@@ -5,7 +5,7 @@ return knex.schema.createTable('movies', function(table) {
  table.string('Title').notNullable().defaultTo('')
  table.string('Director').notNullable().defaultTo('')
  table.integer('Year').notNullable().defaultTo(0)
- table.integer('My Rating').notNullable().defaultTo(0)
+ table.integer('myRating').notNullable().defaultTo(0)
  table.string('poster')
  table.timestamps(true, true)
  // OR
