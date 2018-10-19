@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" charset="utf-8"></script>
 </head>
 <body>
   <nav class="red darken-4" role="navigation">
@@ -41,6 +42,26 @@
      </thead>
      <tbody></tbody>
    </table>
+<br />
+<form id= "add-movie">
+  <br />
+  <label for="title">Title</label>
+  <input type="text" name="title" id="title"><br>
+
+  <label for="director">Director</label>
+  <input type="text" name="director" id="director" /><br />
+
+  <label for="year">Year</label>
+  <input type="number" name="year" id="year" min="1900" max="2030" /><br />
+
+  <label for "myRating">My Rating</label>
+  <input type="number" name="myRating" min="1" max="5" /><br />
+
+  <label for="poster">Poster URL</label>
+  <input type="text" name="poster" id="poster" /><br />
+
+  <input type="submit" value="Submit" id="submit-form" />
+</form>
   </div>
     <br><br>
   </div>

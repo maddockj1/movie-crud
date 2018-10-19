@@ -34,7 +34,7 @@ router.post('/', (req, res, next) => {
     Title: req.body.title,
     Director: req.body.director,
     Year: req.body.year,
-    myRating: req.body.rating,
+    myRating: req.body.myRating,
     poster: req.body.poster
   }
   knex('movies')
