@@ -11,7 +11,7 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" charset="utf-8"></script>
 </head>
-<body>
+<body onload="document.getElementById('add-movie').reset();">
   <nav class="red darken-4" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/index.html" class="brand-logo">John's Movie Reviews!</a>
       <ul class="right hide-on-med-and-down">
@@ -60,10 +60,10 @@
   <label for="poster">Poster URL</label>
   <input type="text" name="poster" id="poster" /><br />
 
-  <input type="submit" value="New Movie!" id="submit-form" />
+  <input type="submit" value="New Movie!" id="submit-form">
 
-  <input type="submit" value="Submit Edit" id="submit-edit">
-  
+  <button type="button" value="Update Movie" id="update-button">Update Movie!</button>
+
 </form>
   </div>
     <br><br>

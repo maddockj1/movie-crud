@@ -60,12 +60,8 @@ function getReports() {
           let posterF = document.getElementById('poster')
           updateButton.addEventListener('click', (ev) => {
             let recordId = ev.target.getAttribute('up-id')
-            document.getElementById('add-movie').reset()
             //console.log('id', recordId);
-
-            axios.patch(`/movies/${recordId}`, )
-            .then((response)=> {
-              //console.log(response.data[0].Title)
+              ev.target.parentElement.remove()
               let upData = response.data[0]
               console.log(upData.Title)
               titleF.value= upData.Title
@@ -73,15 +69,24 @@ function getReports() {
               yearF.value = upData.Year
               myRatingF.value = upData.myRating
               posterF.value = upData.poster
-              console.log(titleF)
-              let replace = document.getElementsById('add-movie').elements
+              })
+    document.getElementById('update-button').addEventListener('click', (ev) => {
+          ev.preventDefault()
 
-            //ev.target.parentElement.
-            })
-            .catch((err) => {
-              console.log(err)
-            })
-          })
+      axios.patch(`/movies/${recordId}`, )
+        .then((response) => {
+          //console.log(response.data[0].Title)
+          
+
+          //ev.target.parentElement.
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+
+
+
           up_td.appendChild(updateButton)
           del_td.appendChild(deleteButton)
           tr.appendChild(title)
@@ -101,6 +106,15 @@ function getReports() {
         console.log(err)
       })
     }
+
+
+
+
+
+
+
+
+
 function addNew(){
   let form= document.getElementById('add-movie')
 
