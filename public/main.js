@@ -28,6 +28,8 @@ function getReports() {
           let del_td = document.createElement('td')
           let deleteButton = document.createElement('button')
           let posterSrc = document.createElement('img')
+          let up_td = document.createElement('td')
+          let updateButton = document.createElement('button')
           title.innerText = report.Title
           director.innerText = report.Director
           year.innerText = report.Year
@@ -37,7 +39,7 @@ function getReports() {
           deleteButton.setAttribute('data-id', report.id)
           deleteButton.addEventListener('click', (ev) => {
             let recordId = ev.target.getAttribute('data-id')
-            console.log('id', recordId);
+            //console.log('id', recordId);
             //delete axios stlyzs
             axios.delete(`/movies/${recordId}`)
               .then((response) => {
@@ -48,6 +50,39 @@ function getReports() {
                 console.log(err)
               })
           })
+          updateButton.innerText = "Update"
+          updateButton.setAttribute('up-id', report.id)
+          let titleF = document.getElementById('title')
+          //console.log(titleF.innerText)
+          let directorF = document.getElementById('director')
+          let yearF = document.getElementById('year')
+          let myRatingF = document.getElementById('myRating')
+          let posterF = document.getElementById('poster')
+          updateButton.addEventListener('click', (ev) => {
+            let recordId = ev.target.getAttribute('up-id')
+            document.getElementById('add-movie').reset()
+            //console.log('id', recordId);
+
+            axios.patch(`/movies/${recordId}`, )
+            .then((response)=> {
+              //console.log(response.data[0].Title)
+              let upData = response.data[0]
+              console.log(upData.Title)
+              titleF.value= upData.Title
+              directorF.value =upData.Director
+              yearF.value = upData.Year
+              myRatingF.value = upData.myRating
+              posterF.value = upData.poster
+              console.log(titleF)
+              let replace = document.getElementsById('add-movie').elements
+
+            //ev.target.parentElement.
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+          })
+          up_td.appendChild(updateButton)
           del_td.appendChild(deleteButton)
           tr.appendChild(title)
           tr.appendChild(director)
@@ -56,7 +91,9 @@ function getReports() {
           tr.appendChild(poster)
           poster.appendChild(posterSrc)
           tr.appendChild(del_td)
+          tr.appendChild(up_td)
           tbody.appendChild(tr)
+
         })
 
       })
@@ -69,6 +106,7 @@ function addNew(){
 
   form.addEventListener('submit', (ev) => {
     ev.preventDefault()
+    console.log("ev", ev.id);
 
     //grab all the form values
     let postData = {}
