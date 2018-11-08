@@ -1,3 +1,4 @@
+let editId
 document.addEventListener("DOMContentLoaded", function(event) {
   console.log("DOM fully loaded and parsed");
   addNew()
@@ -5,10 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   updateMovies()
 
 })
-function populate (clicked_object) {
 
-  console.log(clicked_object)
-}
 function getReports() {
   axios.get('/movies')
     .then((response) => {
@@ -56,8 +54,7 @@ function getReports() {
         })
         updateButton.innerText = "Update"
         updateButton.setAttribute('up-id', report.id)
-        //updateButton.className = "update"
-        updateButton.onClick = populate(this)
+        updateButton.className = "update"
         up_td.appendChild(updateButton)
         del_td.appendChild(deleteButton)
         tr.appendChild(title)
@@ -87,69 +84,74 @@ function updateMovies() {
   let myRatingF = document.getElementById('myRating')
   let posterF = document.getElementById('poster')
   let updated = document.getElementsByClassName('update')
-  console.log(updated)
-// var recordId = ev.target.getAttribute('up-id')
-//     axios.get(`/movies/${recordId}`)
-//       .then((response) => {
-//
-//
-//         let upData = response.data[0]
-//         console.log(upData.title)
-//         titleF.value = upData.title
-//         directorF.value = upData.director
-//         yearF.value = upData.year
-//         myRatingF.value = upData.myRating
-//         posterF.value = upData.poster
-//       })
+
+  console.log(updated);
+  //console.log(updateArr)
+  //console.log(editButtons)
+  for (let i = 0; i < updated.length; i++) {
+    updated[i].addEventListener('click', (ev) => {
+      let recordId = ev.target.getAttribute('up-id')
+      axios.get(`/movies/${recordId}`)
+        .then((response) => {
+          let upData = response.data[0]
+          console.log(upData.title)
+          titleF.value = upData.title
+          directorF.value = upData.director
+          yearF.value = upData.year
+          myRatingF.value = upData.myRating
+          posterF.value = upData.poster
+        })
+    })
+  }
   }
 
-function submitUpdate(){
-document.getElementById('update-button').addEventListener('click', (ev) => {
-  ev.preventDefault()
+  function submitUpdate() {
+    document.getElementById('update-button').addEventListener('click', (ev) => {
+      console.log(document.getElementById('update-button'))
 
-  axios.patch(`/movies/${recordId}`)
-    .then((response) => {
-      //console.log(response.data[0].Title)
+      axios.patch(`/movies/${recordId}`)
+        .then((response) => {
+          //console.log(response.data[0].Title)
+          getReports()
 
-
-      //ev.target.parentElement.
+          //ev.target.parentElement.
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     })
-    .catch((err) => {
-      console.log(err)
-    })
-})
-}
+  }
 
 
 
 
-function addNew() {
-  let form = document.getElementById('add-movie')
+  function addNew() {
+    let form = document.getElementById('add-movie')
 
-  form.addEventListener('submit', (ev) => {
-    ev.preventDefault()
-    //console.log("ev", ev.id);
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault()
+      //console.log("ev", ev.id);
 
-    //grab all the form values
-    let postData = {}
-    let formElements = ev.target.elements
+      //grab all the form values
+      let postData = {}
+      let formElements = ev.target.elements
 
-    for (var i = 0; i < formElements.length; i++) {
-      let inputName = formElements[i].name
-      if (inputName) {
-        postData[inputName] = formElements[i].value
+      for (var i = 0; i < formElements.length; i++) {
+        let inputName = formElements[i].name
+        if (inputName) {
+          postData[inputName] = formElements[i].value
+        }
       }
-    }
-    console.log("postData", postData)
+      console.log("postData", postData)
 
-    //post them datas from the front end to the back whhhhhaaaatt???
-    axios.post('/movies', postData)
-      .then((response) => {
-        console.log(response)
-        getReports()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  })
-}
+      //post them datas from the front end to the back whhhhhaaaatt???
+      axios.post('/movies', postData)
+        .then((response) => {
+          console.log(response)
+          getReports()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    })
+  }
